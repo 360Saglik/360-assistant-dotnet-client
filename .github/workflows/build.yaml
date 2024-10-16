@@ -1,0 +1,30 @@
+name: Build Dot Net Client
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    name: Dotnet Build
+    steps:
+      - uses: actions/checkout@v4.2.1
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: | 
+            3.1.x
+            5.0.x
+            6.0.x
+            7.0.x
+            8.0.x
+      - run: dotnet build -c Release ./src
