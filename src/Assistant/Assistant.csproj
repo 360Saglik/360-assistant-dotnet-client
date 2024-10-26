@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <!-- Temel Ayarlar -->
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -13,9 +13,9 @@
         <Authors>360 Saglik ve Turizm Hizmetleri A.S.</Authors>
         <Company>360 Saglik ve Turizm Hizmetleri A.S.</Company>
         <Product>Assistant Client Library</Product>
-        <Copyright>2024 360 Saglik ve Turizm Hizmetleri A.S.</Copyright>
+        <Copyright>2024</Copyright>
 
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>0.2.0</PackageVersion>
         <PackageDescription>A client library for accessing 360Saglik's Assistant services, designed to simplify integrations with the platform.</PackageDescription>
         <PackageReleaseNotes>Initial release with authentication and patient data management support.</PackageReleaseNotes>
         <PackageTags>360Saglik Health Tourism ClientLibrary</PackageTags>
