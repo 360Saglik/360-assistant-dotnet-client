@@ -42,6 +42,10 @@ jobs:
           name: nuget
           path: ${{ env.NuGetDirectory }}
 
+      - uses: actions/checkout@v4.2.2 
+        with:
+          fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
+
       # Install the .NET SDK indicated in the global.json file
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v4.1.0
