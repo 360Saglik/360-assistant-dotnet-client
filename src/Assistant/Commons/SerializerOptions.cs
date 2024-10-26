@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Assistant.Commons;
 
-public class SerializerOptions
+public static class SerializerOptions
 {
     public static JsonSerializerOptions? Options => new()
     {

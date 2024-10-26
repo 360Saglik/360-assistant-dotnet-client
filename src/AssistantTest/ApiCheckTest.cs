@@ -14,13 +14,13 @@ public class ApiCheckTest
     [SetUp]
     public void Setup()
     {
-        Client = new AssistantClientProvider(ClientId, ClientSecret, Env);
+        Client = new AssistantClientProvider(ClientId, ClientSecret);
     }
-    
+
     [Test]
     public async Task Authentication()
     {
-        var patient = new Patient()
+        var patient = new Patient
         {
             Id = Guid.NewGuid().ToString(),
             GsmCountryCode = "+90",
@@ -35,12 +35,14 @@ public class ApiCheckTest
                 Id = Guid.NewGuid().ToString(),
                 PolicyNumber = "12345678901",
                 StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddYears(1)
+                EndDate = DateTime.Now.AddYears(1),
+                Description = "Test Policy"
             },
-            BirthDate = new DateTime(1988, 6, 25)
+            BirthDate = new DateTime(1988, 6, 25),
+            Gender = (int)GenderType.Male
         };
         var auth = await Client.Authenticate(patient);
-        
+
         Assert.That(auth, Is.Not.Null, "Auth object should not be null");
         Assert.That(auth.Data, Is.Not.Null, "Data object should not be null");
         Assert.That(auth.Data.AccessToken, Is.Not.Null, "Token should not be null or empty");

@@ -42,9 +42,9 @@ public class AssistantClientProvider
         try
         {
             var response = await Client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
             var responseContent = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ApiResponse>(responseContent, SerializerOptions.Options);
+
+            return ApiResponse.FromJson(responseContent, (int)response.StatusCode, response.IsSuccessStatusCode);
         }
         catch (Exception ex)
         {
