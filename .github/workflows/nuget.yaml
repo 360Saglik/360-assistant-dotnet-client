@@ -1,4 +1,4 @@
-name: Build Dot Net Client and Publish Nuget Package
+name: Publish Nuget Package
 
 on:
   push:
