@@ -1,9 +1,46 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <!-- Temel Ayarlar -->
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <AssemblyName>360Saglik.Assistant.ClientLibrary</AssemblyName>
+        <RootNamespace>360Saglik.Assistant.ClientLibrary</RootNamespace>
+        <PackageId>360Saglik.Assistant.ClientLibrary</PackageId>
+
+        <Authors>360 Saglik ve Turizm Hizmetleri A.S.</Authors>
+        <Company>360 Saglik ve Turizm Hizmetleri A.S.</Company>
+        <Product>Assistant Client Library</Product>
+        <Copyright>2024 360 Saglik ve Turizm Hizmetleri A.S.</Copyright>
+
+        <PackageVersion>1.0.0</PackageVersion>
+        <PackageDescription>A client library for accessing 360Saglik's Assistant services, designed to simplify integrations with the platform.</PackageDescription>
+        <PackageReleaseNotes>Initial release with authentication and patient data management support.</PackageReleaseNotes>
+        <PackageTags>360Saglik Health Tourism ClientLibrary</PackageTags>
+        <PackageProjectUrl>https://360saglik.com</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/360Saglik/360-assistant-dotnet-client</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <Description>Comprehensive .NET library for 360Saglik Assistant API, ideal for health tourism services and patient management integration.</Description>
+        <Summary>Provides an easy-to-use client library for integrating with 360Saglik's Assistant platform.</Summary>
+
+        <Authors>360 Saglik ve Turizm Hizmetleri A.S.</Authors>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <RepositoryBranch>main</RepositoryBranch>
+        <PackageIcon>Resource\360saglik-default-symbol.png</PackageIcon>
+        <Title>360Saglik.Assistant.ClientLibrary</Title>
+
     </PropertyGroup>
+
+    <ItemGroup>
+      <None Update="Resource\360saglik-default-symbol.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
+    </ItemGroup>
 
 </Project>
