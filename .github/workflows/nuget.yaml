@@ -53,7 +53,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: | 
-            3.1.x
+            6.0.100
       # Publish all NuGet packages to NuGet.org
       # Use --skip-duplicate to prevent errors if a package with the same version already exists.
       # If you retry a failed workflow, already published packages will be skipped without error.
