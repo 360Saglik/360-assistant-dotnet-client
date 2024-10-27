@@ -7,6 +7,22 @@ namespace Assistant.Models;
 /// </summary>
 public class Policy
 {
+    private Policy()
+    {
+    }
+
+    public Policy(string id, string policyNumber, DateTime startDate, DateTime endDate, string? group,
+        string? description, IList<Product>? products = null)
+    {
+        Id = id;
+        PolicyNumber = policyNumber;
+        StartDate = startDate;
+        EndDate = endDate;
+        Group = group;
+        Description = description;
+        Products = products;
+    }
+
     /// <summary>
     ///     Unique identifier for the policy.
     /// </summary>
@@ -53,4 +69,9 @@ public class Policy
     /// <example>[{ "id": "1", "remainingSessionRights": 10 }]</example>
     [JsonPropertyName("products")]
     public IList<Product>? Products { get; set; }
+
+    public static Policy CreateInstance()
+    {
+        return new Policy();
+    }
 }
