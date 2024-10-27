@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Assistant.Enums;
 
 namespace Assistant.Models;
 
@@ -8,11 +9,32 @@ namespace Assistant.Models;
 /// </summary>
 public class Patient
 {
+    private Patient()
+    {
+    }
+
+    public Patient(string? id, string? gsmCountryCode, string gsm, string firstName, string lastName,
+        string countryCode,
+        string? nationalId, string? passportNumber, Policy policy, DateTime birthDate, GenderType gender)
+    {
+        Id = id;
+        GsmCountryCode = gsmCountryCode;
+        Gsm = gsm;
+        FirstName = firstName;
+        LastName = lastName;
+        CountryCode = countryCode;
+        NationalId = nationalId;
+        PassportNumber = passportNumber;
+        Policy = policy;
+        BirthDate = birthDate;
+        Gender = (int)gender;
+    }
+
     /// <summary>
     ///     Unique identifier for the patient.
     /// </summary>
     [JsonPropertyName("id")]
-    public string Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
     ///     Patient's mobile phone number, required in a valid phone format.
@@ -27,7 +49,7 @@ public class Patient
     /// </summary>
     [RegularExpression(@"^\+[0-9]{1,3}$", ErrorMessage = "Invalid country code")]
     [JsonPropertyName("gsmCountryCode")]
-    public string GsmCountryCode { get; set; }
+    public string? GsmCountryCode { get; set; }
 
     /// <summary>
     ///     Patient's first name.
@@ -55,7 +77,7 @@ public class Patient
     /// </summary>
     [RegularExpression(@"^[0-9]{11}$", ErrorMessage = "Invalid National ID")]
     [JsonPropertyName("nationalId")]
-    public string NationalId { get; set; }
+    public string? NationalId { get; set; }
 
     /// <summary>
     ///     Optional passport number for the patient.
@@ -81,4 +103,9 @@ public class Patient
     /// </summary>
     [JsonPropertyName("gender")]
     public int Gender { get; set; }
+
+    public static Patient CreateInstance()
+    {
+        return new Patient();
+    }
 }

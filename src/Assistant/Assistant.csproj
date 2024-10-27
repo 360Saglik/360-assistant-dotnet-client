@@ -15,7 +15,7 @@
         <Product>Assistant Client Library</Product>
         <Copyright>2024</Copyright>
 
-        <PackageVersion>0.2.1</PackageVersion>
+        <PackageVersion>1.2.1</PackageVersion>
         <PackageDescription>A client library for accessing 360Saglik's Assistant services, designed to simplify integrations with the platform.</PackageDescription>
         <PackageReleaseNotes>Initial release with authentication and patient data management support.</PackageReleaseNotes>
         <PackageTags>360Saglik Health Tourism ClientLibrary</PackageTags>
@@ -37,10 +37,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="Resource\360saglik-default-symbol.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
+        <None Update="Resource\360saglik-default-symbol.png">
+            <Pack>True</Pack>
+            <PackagePath></PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>
