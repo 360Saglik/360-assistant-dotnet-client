@@ -47,7 +47,7 @@ public class ApiCheckTest
     [Test]
     public async Task AuthenticatePatient()
     {
-        var auth = await Client.AuthenticatePatient(PatientInstance);
+        var auth = await Client.AuthenticatePatientAsync(PatientInstance);
 
         Assert.That(auth, Is.Not.Null, "Auth object should not be null");
         Assert.That(auth.Data, Is.Not.Null, "Data object should not be null");
@@ -63,10 +63,10 @@ public class ApiCheckTest
     [Test]
     public async Task ValidateToken()
     {
-        var auth = await Client.AuthenticatePatient(PatientInstance);
+        var auth = await Client.AuthenticatePatientAsync(PatientInstance);
         if (auth.Data.AccessToken != null)
         {
-            var validate = await Client.ValidateToken(new ValidateToken
+            var validate = await Client.ValidateTokenAsync(new ValidateToken
             {
                 Token = auth.Data.AccessToken
             });

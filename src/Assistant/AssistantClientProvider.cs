@@ -14,7 +14,7 @@ public class AssistantClientProvider
     private static readonly HttpClient Client;
     private readonly string _clientId;
     private readonly string _clientSecret;
-    private readonly ServerType _serverType;
+    private readonly string _baseUrl;
 
     static AssistantClientProvider()
     {
@@ -30,65 +30,69 @@ public class AssistantClientProvider
 
     public AssistantClientProvider(string clientId, string clientSecret, ServerType serverType = ServerType.Development)
     {
-        _clientId = clientId;
-        _clientSecret = clientSecret;
-        _serverType = serverType;
+        _clientId = clientId ?? throw new ArgumentNullException(nameof(clientId));
+        _clientSecret = clientSecret ?? throw new ArgumentNullException(nameof(clientSecret));
+        _baseUrl = Helpers.GetServerUrl(serverType);
     }
 
-    public async Task<AuthenticatePatientResponse> AuthenticatePatient(Patient patient)
+    public async Task<AuthenticatePatientResponse> AuthenticatePatientAsync(Patient patient)
     {
-        var requestUri = Helpers.GetServerUrl(_serverType) + "auth/join";
-        var request = CreateRequest(requestUri, patient);
+        ArgumentNullException.ThrowIfNull(patient);
+        
+        return await SendRequestAsync<Patient, AuthenticatePatientResponse>(
+            patient, 
+            "auth/join"
+        ).ConfigureAwait(false);
+    }
+
+    public async Task<ValidateTokenResponse?> ValidateTokenAsync(ValidateToken token)
+    {
+        ArgumentNullException.ThrowIfNull(token);
+        
+        return await SendRequestAsync<ValidateToken, ValidateTokenResponse>(
+            token, 
+            "auth/validate"
+        ).ConfigureAwait(false);
+    }
+
+    private async Task<TResponse> SendRequestAsync<TRequest, TResponse>(TRequest model, string endpoint) where TResponse : ApiResponse, new()
+    {
+        var request = CreateRequest(Path.Combine(_baseUrl, endpoint), model);
 
         try
         {
-            var response = await Client.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
+            using var response = await Client.SendAsync(request).ConfigureAwait(false);
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            return Helpers.FromJsonToObject<AuthenticatePatientResponse>(responseContent, (int)response.StatusCode,
-                response.IsSuccessStatusCode);
+            return Helpers.FromJsonToObject<TResponse>(
+                responseContent, 
+                (int)response.StatusCode,
+                response.IsSuccessStatusCode
+            );
+        }
+        catch (HttpRequestException ex)
+        {
+            throw new Exception($"HTTP request failed while processing {endpoint}", ex);
+        }
+        catch (TaskCanceledException ex)
+        {
+            throw new Exception($"Request timeout while processing {endpoint}", ex);
         }
         catch (Exception ex)
         {
-            throw new Exception("An error occurred while authenticating.", ex);
-        }
-    }
-
-    public async Task<ValidateTokenResponse?> ValidateToken(ValidateToken token)
-    {
-        var requestUri = Helpers.GetServerUrl(_serverType) + "auth/validate";
-        var request = CreateRequest(requestUri, token);
-
-        try
-        {
-            var response = await Client.SendAsync(request);
-            var responseContent = await response.Content.ReadAsStringAsync();
-
-            return Helpers.FromJsonToObject<ValidateTokenResponse>(responseContent, (int)response.StatusCode,
-                response.IsSuccessStatusCode);
-        }
-        catch (Exception ex)
-        {
-            throw new Exception("An error occurred while authenticating.", ex);
+            throw new Exception($"An unexpected error occurred while processing {endpoint}", ex);
         }
     }
 
     private HttpRequestMessage CreateRequest<T>(string requestUri, T model)
     {
-        var request = CreateRequestMessage(requestUri);
-
-        var serializedModel = JsonSerializer.Serialize(model, SerializerOptions.Options);
-        var content = new StringContent(serializedModel, Encoding.UTF8, "application/json");
-        request.Content = content;
-
-        return request;
-    }
-
-    private HttpRequestMessage CreateRequestMessage(string requestUri)
-    {
         var request = new HttpRequestMessage(HttpMethod.Post, requestUri);
         request.Headers.Add("client-id", _clientId);
         request.Headers.Add("secret-key", _clientSecret);
+
+        var serializedModel = JsonSerializer.Serialize(model, SerializerOptions.Options);
+        request.Content = new StringContent(serializedModel, Encoding.UTF8, "application/json");
+
         return request;
     }
 }
