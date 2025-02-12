@@ -10,7 +10,7 @@ This library provides a simple way to authenticate and interact with an assistan
 ## 📋 Requirements
 
 - .NET 6.0+
-- API Key 
+- API Key
 
 ## 🛠️ Setup
 
@@ -65,20 +65,19 @@ Console.WriteLine(JsonSerializer.Serialize(auth));
 
 ```json
 {
-    "Data": {
-        "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdWJsaWNLZXkiOiIxZjcyNWRiNi01MjRjLTQwM2Qt.....",
-        "AccessTokenExpiredTime": "2025-02-19T12:26:56.019Z",
-        "RedirectUrl": "https://uri.360saglik.dev/OwXTRSuCJmPF1zt"
-    },
-    "Actions": [],
-    "Message": "success",
-    "IsSuccess": true,
-    "StatusCode": 200,
-    "Error": null
+  "Data": {
+    "AccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdWJsaWNLZXkiOiIxZjcyNWRiNi01MjRjLTQwM2Qt.....",
+    "AccessTokenExpiredTime": "2025-02-19T12:26:56.019Z",
+    "RedirectUrl": "https://uri.360saglik.dev/OwXTRSuCJmPF1zt"
+  },
+  "Actions": [],
+  "Message": "success",
+  "IsSuccess": true,
+  "StatusCode": 200,
+  "Error": null
 }
 ```
 
-## 📝 Lisans
+## 📝 License
 
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
-
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
